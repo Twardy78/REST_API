@@ -9,6 +9,11 @@ import java.util.*;
 @Repository
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
+    @Override
     List<Task> findAll();
+
     Task findById(long id);
+
+    @Override
+    Task save(Task task);
 }
