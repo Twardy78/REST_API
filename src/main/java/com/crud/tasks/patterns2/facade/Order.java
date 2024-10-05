@@ -1,4 +1,4 @@
-package com.kodilla.patterns2.facade;
+package com.crud.tasks.patterns2.facade;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

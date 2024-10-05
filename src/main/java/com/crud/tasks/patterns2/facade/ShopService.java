@@ -1,11 +1,16 @@
-package com.kodilla.patterns2.facade;
+package com.crud.tasks.patterns2.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
+@EnableAspectJAutoProxy
 @Service
 public class ShopService {
     private final List<Order> orders = new ArrayList<>();

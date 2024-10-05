@@ -1,2 +1,9 @@
-package com.crud.tasks.patterns2.decorator.pizza;public interface Pizza {
+package com.crud.tasks.patterns2.decorator.pizza;
+
+import java.math.BigDecimal;
+
+public interface Pizza {
+
+   BigDecimal getPrice();
+   String getContent();
 }
