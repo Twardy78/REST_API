@@ -1,5 +1,6 @@
 package com.crud.tasks.trello.client;
 
+import com.crud.tasks.controller.TrelloController;
 import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
@@ -10,14 +11,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
+
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class TrelloFasadeTest {
+@SpringJUnitWebConfig
+public class TrelloFacadeTest {
+
     @InjectMocks
     private TrelloFacade trelloFacade;
     @Mock
@@ -26,6 +31,7 @@ public class TrelloFasadeTest {
     private TrelloValidator trelloValidator;
     @Mock
     private TrelloMapper trelloMapper;
+
 
     @Test
     void shouldFetchEmptyList() {
@@ -92,31 +98,31 @@ public class TrelloFasadeTest {
     assertEquals(0, trelloBoardDtos.size());
     }
 
-//    @Test
-//    public void shouldHandleEmptyNamesInTrelloBoards() {
-//        // Given
-//        List<TrelloListDto> trelloLists = List.of(new TrelloListDto("1", "", false));
-//        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("1", "", trelloLists));
-//        List<TrelloList> mappedTrelloLists = List.of(new TrelloList("1", "", false));
-//        List<TrelloBoard> mappedTrelloBoards = List.of(new TrelloBoard("1", "", mappedTrelloLists));
-//
-//        when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
-//        when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
-//        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(trelloBoards);
-//        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
-//
-//        // Debug
-//        System.out.println("Before validation: " + mappedTrelloBoards);
-//
-//        // When
-//        List<TrelloBoardDto> result = trelloFacade.fetchTrelloBoards();
-//
-//        // Debug
-//        System.out.println("After validation: " + result);
-//
-//        // Then
-//        assertEquals(1, result.size());
-//    }
+    @Test
+    public void shouldHandleEmptyNamesInTrelloBoards() {
+        // Given
+        List<TrelloListDto> trelloLists = List.of(new TrelloListDto("1", "", false));
+        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("1", "", trelloLists));
+        List<TrelloList> mappedTrelloLists = List.of(new TrelloList("1", "", false));
+        List<TrelloBoard> mappedTrelloBoards = List.of(new TrelloBoard("1", "", mappedTrelloLists));
+
+        when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
+        when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
+        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(trelloBoards);
+        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
+
+        // Debug
+        System.out.println("Before validation: " + mappedTrelloBoards);
+
+        // When
+        List<TrelloBoardDto> result = trelloFacade.fetchTrelloBoards();
+
+        // Debug
+        System.out.println("After validation: " + result);
+
+        // Then
+        assertEquals(1, result.size());
+    }
 
     @Test
     void shouldCallValidatorWhenFetchingBoards() {
