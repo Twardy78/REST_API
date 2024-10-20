@@ -1,7 +1,6 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
-import java.util.Optional;
-
 import static org.hibernate.tool.schema.SchemaToolingLogging.LOGGER;
 
 @Slf4j
@@ -32,7 +27,6 @@ public class SimpleEmailService {
         try {
             javaMailSender.send(createMimeMessage(mail));
             LOGGER.info("Email has been sent.");
-            log.info("Email has been sent.");
         } catch (MailException e) {
             log.error("Failed to process email sending: " + e.getMessage(), e);
         }
@@ -47,11 +41,10 @@ public class SimpleEmailService {
         };
     }
 
-    private SimpleMailMessage createMailMessage(final Mail mail) throws MessagingException {
+    private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        MimeMessageHelper messageHelper = null;
-        messageHelper.setSubject(mail.getSubject());
+        mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
         return mailMessage;
     }
